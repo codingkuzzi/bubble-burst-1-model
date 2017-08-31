@@ -25,6 +25,17 @@
       <h3><a routerLink="about">About</a></h3>
       <h3><a routerLink="highscores">High Scores</a></h3>
     </div>
+
+    <div class="row columns">
+      <button (click)="login()" *ngIf="!(user | async)?.uid">Gmail Login</button>
+      <button (click)="logout()" *ngIf="(user | async)?.uid">Logout</button>
+
+      <input type="text" id="message" *ngIf="(user | async)?.uid" placeholder="What is it that you do?" (keyup.enter)="Send($event.target.value)" [(ngModel)]="msgVal" />
+      <div id="details-container">
+          <p *ngFor="let message of messages | async">{{message.name}}: {{message.text}} </p>
+      </div>
+    </div>
+
   </div>
 
 
